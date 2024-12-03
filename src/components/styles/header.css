@@ -1,0 +1,18 @@
+.header>*{
+    cursor: pointer;
+}
+.header .categories>*{
+    margin-left: 20px;
+}
+.profile__section >input{
+    outline: none;
+    border: 1px solid rgb(0,0,0,0.4);
+    border-radius: 20px;
+    padding: 5px;
+}
+.profile__section{
+    justify-content: flex-end;
+}
+.profile__section>*{
+    margin-left: 8px;
+}

@@ -1,0 +1,12 @@
+.btns__container{
+    display: flex;
+    gap:5px;
+    margin-top: 10px;
+}
+.btns__container>div{
+    cursor: pointer;
+    border-bottom: 2px solid #fff;
+}
+.btns__container>div:active{
+    border-bottom: 2px solid rgb(26, 77, 46);
+}
