@@ -5,9 +5,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import "./styles/header.css"
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
-import Cart from "../pages/Cart.jsx";
-import ItemsContainer from "./ItemsContainer.jsx";
-import ItemsCategoriesAvailable from "../pages/ItemsCategoriesAvailable.jsx";
+
 const Header =()=>{
     const navigate =useNavigate()
     const[isSearchVisible,setIsSearchVisible] =useState(false)
@@ -44,7 +42,7 @@ const Header =()=>{
 
                 <div onClick={()=>{
 
-                    navigate("/items/men")
+                    navigate("/items/male")
                 }}>
                     Men
                 </div>
