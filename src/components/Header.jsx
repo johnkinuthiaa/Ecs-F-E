@@ -5,11 +5,15 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import "./styles/header.css"
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import Cart from "../pages/Cart.jsx";
 const Header =()=>{
     const navigate =useNavigate()
     const[isSearchVisible,setIsSearchVisible] =useState(false)
     const searchVisibility =()=>{
         setIsSearchVisible(!isSearchVisible)
+    }
+    const getCart =()=>{
+        navigate("/cart")
     }
     return(
         <div className={"header"} style={{
@@ -51,7 +55,10 @@ const Header =()=>{
                 <div className={"profile__section__search"} onClick={()=>searchVisibility()}>
                     <SearchIcon />
                 </div>
-                <ShoppingCartIcon/>
+                <div className={"cart"} onClick={()=>getCart()}>
+                    <ShoppingCartIcon/>
+                </div>
+
                 <AccountCircleIcon/>
             </div>
 

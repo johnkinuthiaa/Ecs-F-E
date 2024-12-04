@@ -5,6 +5,7 @@ import App from './App.jsx'
 import {BrowserRouter} from "react-router-dom";
 import Adverts from "./components/Adverts.jsx";
 import Header from "./components/Header.jsx";
+import Footer from "./components/Footer.jsx";
 
 
 createRoot(document.getElementById('root')).render(
@@ -13,6 +14,7 @@ createRoot(document.getElementById('root')).render(
           <Adverts/>
           <Header />
           <App />
+          <Footer/>
       </BrowserRouter>
   </StrictMode>,
 )
