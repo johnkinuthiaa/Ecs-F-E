@@ -1,7 +1,7 @@
 .header>*{
     cursor: pointer;
 }
-.header .categories>*{
+.header .categories>div{
     margin-left: 20px;
 }
 .profile__section >input{

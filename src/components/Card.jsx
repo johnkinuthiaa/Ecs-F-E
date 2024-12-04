@@ -21,6 +21,11 @@ const Card =({image,off,name,price,offPrice,description,id})=>{
         width:"280px",
         height:"400px"
     }
+
+    const priceCard={
+        fontWeight:"800"
+    }
+
     const handleCLick =()=>{
         navigate(`/item/description/${id}`)
     }
@@ -33,7 +38,7 @@ const Card =({image,off,name,price,offPrice,description,id})=>{
                 {off ===false? (
                     <p>Price :${price}</p>
                 ):(
-                    <div>
+                    <div style={priceCard}>
                         <p className={"previous"} style={{
                             textDecorationLine:"line-through",
                             textDecorationColor: "red"
@@ -41,7 +46,7 @@ const Card =({image,off,name,price,offPrice,description,id})=>{
                             Was: ${(price + offPrice).toFixed(2)}
                         </p>
                         <p>{offPrice != 0 && `Discount: $${offPrice}`}</p>
-                        <p className={"new__price"}>discounted price:${price}</p>
+                        <p className={"new__price"}>New Price:${price}</p>
                     </div>
                 )}
 

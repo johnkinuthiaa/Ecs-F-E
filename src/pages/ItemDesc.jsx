@@ -72,8 +72,8 @@ const ItemDesc =()=>{
                 <h3>Quantity:</h3><span>Only {itemWithId.quantity} units remaining</span>
 
                 <h3>Offer:</h3><span>{itemWithId.offer ===true?" item is on offer":"item is not on offer"}</span>
-                {itemWithId.offerAmount !==null&& <div><h3>Offer:</h3><span>$ {itemWithId.offerAmount} </span></div>}
 
+                {itemWithId.offerAmount !==null && <div><h3>Offer:</h3><span>$ {itemWithId.offerAmount} </span></div>}
                 <h3>Description:</h3><span> {itemWithId.description}</span>
                 <div className={"add__to__cart__btn__container"} style={addToCartBtn}>
                     <Button backgroundColor={"rgb(56, 229, 77)"} text={"Add To Cart"} icon={<ShoppingCartIcon/>}/>

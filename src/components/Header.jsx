@@ -6,9 +6,12 @@ import "./styles/header.css"
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import Cart from "../pages/Cart.jsx";
+import ItemsContainer from "./ItemsContainer.jsx";
+import ItemsCategoriesAvailable from "../pages/ItemsCategoriesAvailable.jsx";
 const Header =()=>{
     const navigate =useNavigate()
     const[isSearchVisible,setIsSearchVisible] =useState(false)
+    const[searchValue,setSearchValue] =useState("")
     const searchVisibility =()=>{
         setIsSearchVisible(!isSearchVisible)
     }
@@ -38,10 +41,31 @@ const Header =()=>{
                 display:"flex",
                 justifyContent:"space-between",
                 margin:"0 auto"}}>
-                <h3>Men</h3>
-                <h3>Women</h3>
-                <h3>Kids</h3>
-                <h3>All items</h3>
+
+                <div onClick={()=>{
+
+                    navigate("/items/men")
+                }}>
+                    Men
+                </div>
+                <div onClick={()=>{
+
+                    navigate("/items/female")
+                }}>
+                    Women
+                </div>
+                <div onClick={()=>{
+
+                    navigate("/items/children")
+                }}>
+                    Kids
+                </div>
+                <div onClick={()=>{
+
+                    navigate("/items/all")
+                }}>
+                    All items
+                </div>
             </div>
             <div className={"profile__section"} style={{
                 display:"flex",
@@ -51,7 +75,13 @@ const Header =()=>{
 
 
             }}>
-                {isSearchVisible && <input type={"search"} placeholder={"search for item"}/>}
+                {isSearchVisible &&
+                    <input type={"search"} placeholder={"search for item"} onChange={(e)=>setSearchValue(e.target.value)}/>
+
+                }
+                <button type={"submit"} onClick={()=>{
+
+                }}></button>
                 <div className={"profile__section__search"} onClick={()=>searchVisibility()}>
                     <SearchIcon />
                 </div>
