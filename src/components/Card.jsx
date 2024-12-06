@@ -1,6 +1,6 @@
 import "./styles/card.css"
 import {useNavigate} from "react-router-dom";
-const Card =({image,off,name,price,offPrice,description,id})=>{
+const Card =({image,off,name,price,offPrice,description,id,imgWidth,imgHeight})=>{
     const navigate =useNavigate()
     const cardStyles ={
         backgroundColor:"rgb(191, 207, 231,0.5)",
@@ -15,11 +15,9 @@ const Card =({image,off,name,price,offPrice,description,id})=>{
     }
     const imageStyles ={
         borderRadius:"7px",
-        // width:"236px",
-        // height:"357px"
         margin:"5px",
-        width:"280px",
-        height:"400px"
+        width:imgWidth?`${imgWidth}`:"280px",
+        height:imgHeight?`${imgHeight}`:"400px",
     }
 
     const priceCard={

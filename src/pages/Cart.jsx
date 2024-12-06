@@ -1,45 +1,97 @@
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import {useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import Button from "../components/Button.jsx";
+import Card from "../components/Card.jsx";
+import "./Cart.css"
 const Cart =()=>{
-    const[itemsInCart,setItemsInCart] =useState(0)
+
+    const[itemsInCart,setItemsInCart] =useState(1)
+    const [cartItems,setCartItems] =useState([])
+    const BASE_URL ="http://localhost:8080/api/v1/cart/get/cart?id=1"
+
+    useEffect(()=>{
+        fetchItemsInCart()
+    },[])
+
     const cartStyling ={
         margin:"10px auto",
         display:"flex",
         flexDirection:"column",
-        width:"80%",
-        height: "76vh",
+        flexWrap:"wrap",
+        width:"50%",
+        // height: "76vh",
         justifyContent:"flex-start",
-        backgroundColor:"rgb(191, 207, 231,0.5)"
+    }
+    const cartStyles ={
+        display:"flex",
+        flexDirection: "column",
+        alignItems:"center",
+        justifyContent:"space-between",
+        flexWrap: "wrap",
+        gap:5,
+        backgroundColor:"rgb(191, 207, 231,0.5)",
+        padding:"10px",
+        width: "80%",
+        margin: "0 auto"
+
     }
     const modifyCart={
         display: "flex",
         alignItems:"center"
     }
+    const fetchItemsInCart =(async ()=>{
+        const response =await fetch(BASE_URL)
+        const data = await response.json()
+        if(data.cart.items !==null){
+            setCartItems(data?.cart.items)
+        }else{
+            setCartItems("cart is empty at the moment")
+        }
+    })
+    const cartItemsHolder ={
+        display:"flex",
+        alignItems: "flex-end",
+        justifyContent: "space-evenly"
+    }
+
     return(
         <div style={cartStyling}>
             <div className={"items__in__cart"} >
-                <div>
-                    <img />
-                </div>
-                <div>
-                    <p>name</p>
-                    <p>quantity</p>
-                    <div className={"add__modify__cart"} style={modifyCart}>
-                        <Button icon={<RemoveIcon/>} backgroundColor={"red"}/>
-                        <button onClick={() => setItemsInCart(itemsInCart > 0 ? itemsInCart - 1 : 0)}>
-                            <RemoveIcon/>
-                        </button>
-                        <p>{itemsInCart}</p>
-                        <Button icon={<AddIcon/>} backgroundColor={"green"}/>
-                        <button
-                            onClick={() =>
-                                setItemsInCart(itemsInCart + 1)}
-                        >
-                            <AddIcon/>
-                        </button>
+                <div style={cartItemsHolder} className={"cart__items__holder"}>
+                    <div style={cartStyles} className={"card__holder"}>
+                        {cartItems.length>0?(
+                            cartItems.map((item)=>(
+                                <div style={cartStyles}>
+                                    <Card
+                                        off={item.offer}
+                                        description={item.description}
+                                        image={item.image}
+                                        id={item.id}
+                                        offPrice={item.offerAmount}
+                                        price={item.price}
+                                        name={item.name} imgHeight={"60px"}
+                                        imgWidth={"60px"}
 
+                                    />
+                                    <div className={"add__modify__cart"} style={modifyCart}>
+                                        <button onClick={() => setItemsInCart(itemsInCart > 1 ? itemsInCart - 1 : 1)}>
+                                            <RemoveIcon/>
+                                        </button>
+                                        <p>Quantity: {itemsInCart} </p>
+                                        <button
+                                            onClick={() =>
+                                                setItemsInCart(itemsInCart + 1)}
+                                        >
+                                            <AddIcon/>
+                                        </button>
+
+                                    </div>
+                                </div>
+                            ))
+                            ):(
+                            <div>empty cart</div>
+                        )}
                     </div>
 
                 </div>

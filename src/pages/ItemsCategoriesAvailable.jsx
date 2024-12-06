@@ -9,8 +9,7 @@ const ItemsCategoriesAvailable =()=>{
 
     useEffect(()=>{
         fetchDataByCategory()
-    })
-    console.log(typeof (cat))
+    },[])
     const fetchDataByCategory =(async ()=>{
         const response =await fetch(`http://localhost:8080/api/v1/shop/find/category?category=${category}`)
         if(response.ok){

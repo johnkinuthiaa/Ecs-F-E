@@ -1,0 +1,7 @@
+.card__holder>*{
+    width: 100% !important;
+    display: flex;
+}
+.card__holder>card>*{
+    display: flex;
+}

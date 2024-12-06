@@ -6,15 +6,16 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 const ItemDesc =()=>{
+
+    const [itemWithId,setItemWithId] =useState({})
+    const [like,setLiked] =useState(false)
+    const[disable,setDisabled] =useState(false)
     useEffect(() => {
         getById()
     }, []);
 
-    const [itemWithId,setItemWithId] =useState({})
-    const [like,setLiked] =useState(false)
-
     const currentUrl =window.location.href
-    const id =currentUrl.substring(currentUrl.length-2,currentUrl.length)
+    const id =currentUrl.match(/[^/]+$/);
 
     const liking =()=>{
         setLiked(!like)
@@ -24,6 +25,18 @@ const ItemDesc =()=>{
         const response =await fetch(`http://localhost:8080/api/v1/shop/find/id?id=${id}`)
         const data =await response.json()
         setItemWithId(data.item)
+    })
+    const myHeaders =new Headers()
+    myHeaders.append("Content-Type","application/json")
+    const addItemToCart =(async ()=>{
+        const response =await fetch("http://localhost:8080/api/v1/cart/add/items?userId=2&cartId=2", {
+            method:"POST",
+            body:JSON.stringify(itemWithId),
+            headers:myHeaders,
+            })
+        const data = await response.json()
+        console.log(data)
+        alert(data.message)
     })
 
     const itemDescription ={
@@ -76,7 +89,9 @@ const ItemDesc =()=>{
                 {itemWithId.offerAmount !==null && <div><h3>Offer:</h3><span>$ {itemWithId.offerAmount} </span></div>}
                 <h3>Description:</h3><span> {itemWithId.description}</span>
                 <div className={"add__to__cart__btn__container"} style={addToCartBtn}>
-                    <Button backgroundColor={"rgb(56, 229, 77)"} text={"Add To Cart"} icon={<ShoppingCartIcon/>}/>
+                    <div onClick={()=>addItemToCart()}>
+                        <Button backgroundColor={"rgb(56, 229, 77)"} text={"Add To Cart"} icon={<ShoppingCartIcon/>}/>
+                    </div>
                     <Button backgroundColor={"rgb(61, 59, 243)"} text={"Add To WishList"} icon={<FavoriteIcon/>}/>
                 </div>
 
