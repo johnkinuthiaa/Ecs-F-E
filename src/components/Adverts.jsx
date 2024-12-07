@@ -1,13 +1,14 @@
 import "./styles/StripAnimation.css"
 const Adverts =()=>{
     const stripStyles ={
-        display:"flex",
+        display:"inline-flex",
         color:"#fff",
         backgroundColor:"rgb(26, 77, 46)",
         padding:"5px",
         justifyContent:"space-evenly",
         margin:"0 auto",
         width:"80%",
+        whiteSpace:"nowrap"
 
     }
     return(
