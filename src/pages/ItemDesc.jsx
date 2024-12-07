@@ -39,7 +39,7 @@ const ItemDesc =()=>{
         alert(data.message)
     })
 
-    const itemDescription ={
+    const itemDescription = {
         margin:"10px auto",
         display:"flex",
         width:"80%",
