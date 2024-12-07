@@ -1,7 +1,14 @@
-.card__holder>*{
-    width: 100% !important;
+
+.cart__item__holder >.cart{
     display: flex;
+    align-items: center;
 }
-.card__holder>card>*{
-    display: flex;
+.cart__item__holder >.cart>img{
+    height: 100px;
+    width: 100px;
+    border-radius: 5px;
+}
+.cart__item__holder >.cart>.text{
+    margin-left: 10px;
+    line-height: 1.5;
 }

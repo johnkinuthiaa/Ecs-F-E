@@ -9,7 +9,7 @@ const ItemDesc =()=>{
 
     const [itemWithId,setItemWithId] =useState({})
     const [like,setLiked] =useState(false)
-    const[disable,setDisabled] =useState(false)
+    let[disable,setDisabled] =useState(false)
     useEffect(() => {
         getById()
     }, []);
@@ -34,6 +34,7 @@ const ItemDesc =()=>{
             headers:myHeaders,
             })
         const data = await response.json()
+        setDisabled(true)
         alert(data.message)
     })
 
@@ -87,8 +88,14 @@ const ItemDesc =()=>{
                 {itemWithId.offerAmount !==null && <div><h3>Offer:</h3><span>$ {itemWithId.offerAmount} </span></div>}
                 <h3>Description:</h3><span> {itemWithId.description}</span>
                 <div className={"add__to__cart__btn__container"} style={addToCartBtn}>
-                    <div onClick={()=>addItemToCart()}>
-                        <Button backgroundColor={"rgb(56, 229, 77)"} text={"Add To Cart"} icon={<ShoppingCartIcon/>}/>
+                    <div
+                        onClick={()=>{
+                            disable?(alert("item is already in cart")):(
+                                addItemToCart()
+                            )
+                        }}
+                    >
+                        <Button backgroundColor={"rgb(56, 229, 77)"} text={"Add To Cart"} icon={<ShoppingCartIcon/>} />
                     </div>
                     <Button backgroundColor={"rgb(61, 59, 243)"} text={"Add To WishList"} icon={<FavoriteIcon/>}/>
                 </div>

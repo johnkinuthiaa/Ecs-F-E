@@ -7,8 +7,8 @@ const Footer =()=>{
         margin:"0 auto",
         alignItems:"center",
         width:"80%",
-        position:"relative",
-        bottom:"0",
+        position:"absolute",
+        // bottom:"0",
         padding:"10px"
     }
     return(

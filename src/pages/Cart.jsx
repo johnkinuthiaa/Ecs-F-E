@@ -1,13 +1,17 @@
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import {useCallback, useEffect, useState} from "react";
-import Button from "../components/Button.jsx";
-import Card from "../components/Card.jsx";
+import DeleteIcon from '@mui/icons-material/Delete';
+import {useEffect, useState} from "react";
+
 import "./Cart.css"
+import Button from "../components/Button.jsx";
 const Cart =()=>{
 
     const[itemsInCart,setItemsInCart] =useState(1)
     const [cartItems,setCartItems] =useState([])
+
+    let totalAmount =0
+
     const BASE_URL ="http://localhost:8080/api/v1/cart/get/cart?id=1"
 
     useEffect(()=>{
@@ -18,22 +22,22 @@ const Cart =()=>{
         margin:"10px auto",
         display:"flex",
         flexDirection:"column",
+        alignItems: "center",
         flexWrap:"wrap",
         width:"50%",
-        // height: "76vh",
-        justifyContent:"flex-start",
+        height:"98vh",
+        // backgroundColor: "whiteSmoke"
     }
     const cartStyles ={
         display:"flex",
         flexDirection: "column",
-        alignItems:"center",
-        justifyContent:"space-between",
+        justifyContent:"space-evenly",
         flexWrap: "wrap",
-        gap:5,
-        backgroundColor:"rgb(191, 207, 231,0.5)",
+        gap:2,
         padding:"10px",
         width: "80%",
-        margin: "0 auto"
+        margin: "0 auto",
+        backgroundColor:"rgb(191, 207, 231,0.5)"
 
     }
     const modifyCart={
@@ -41,11 +45,6 @@ const Cart =()=>{
         alignItems:"center"
     }
 
-    const cartItemsHolder ={
-        display:"flex",
-        alignItems: "flex-end",
-        justifyContent: "space-evenly"
-    }
     const fetchItemsInCart =(async ()=>{
         const response =await fetch(BASE_URL)
         const data = await response.json()
@@ -67,53 +66,55 @@ const Cart =()=>{
 
     return(
         <div style={cartStyling}>
-            <div className={"items__in__cart"} >
-                <div style={cartItemsHolder} className={"cart__items__holder"}>
-                    <div style={cartStyles} className={"card__holder"}>
-                        {cartItems.length>0?(
-                            cartItems.map((item)=>(
-                                <div style={cartStyles}>
-                                    <Card
-                                        off={item.offer}
-                                        description={item.description}
-                                        image={item.image}
-                                        id={item.id}
-                                        offPrice={item.offerAmount}
-                                        price={item.price}
-                                        name={item.name} imgHeight={"60px"}
-                                        imgWidth={"60px"}
+            {cartItems.length > 0 ? (
+                cartItems.map((item) => (
+                    <div style={cartStyles} className={"cart__item__holder"}>
+                        <p style={{display: "none"}}>{totalAmount = totalAmount + item.price}</p>
+                        <div className={"cart"}>
+                            <img src={item.image} alt={item.name}/>
+                            <div className={"text"}>
+                                <h3>{item.name}</h3>
+                                <p>price :${item.price}</p>
+                                <div className={"add__modify__cart"} style={modifyCart}>
+                                    <button onClick={() => setItemsInCart(itemsInCart > 1 ? itemsInCart - 1 : 1)}>
+                                        <RemoveIcon/>
+                                    </button>
+                                    <p>Qty: {itemsInCart} </p>
+                                    <button
+                                        onClick={() =>
+                                            setItemsInCart(itemsInCart + 1)}
+                                    >
+                                        <AddIcon/>
+                                    </button>
 
-                                    />
-                                    <div className={"add__modify__cart"} style={modifyCart}>
-                                        <button onClick={() => setItemsInCart(itemsInCart > 1 ? itemsInCart - 1 : 1)}>
-                                            <RemoveIcon/>
-                                        </button>
-                                        <p>Quantity: {itemsInCart} </p>
-                                        <button
-                                            onClick={() =>
-                                                setItemsInCart(itemsInCart + 1)}
-                                        >
-                                            <AddIcon/>
-                                        </button>
-
-                                    </div>
-                                    <div>Total :</div>
-                                    <div className={"clear__cart"}>
-                                        <button onClick={()=>clearCart()}>
-                                            Clear cart
-                                        </button>
-                                    </div>
                                 </div>
-                            ))
-                            ):(
-                            <div>empty cart</div>
-                        )}
+                            </div>
+                        </div>
+
                     </div>
+
+                ))
+
+            ) : (
+                <div style={{width:"100%",alignItems:"center"}}>
+                    <img src={"https://i.pinimg.com/736x/2e/ac/fa/2eacfa305d7715bdcd86bb4956209038.jpg"} alt={"empty cart"}/>
+                </div>
+            )}
+            <div className={"clear__cart"} style={{display:cartItems.length===0&&"none"}}>
+                <p>Total Price: ${totalAmount}</p>
+                <div onClick={() => {
+                    cancelAnimationFrame(2)
+                    clearCart()
+                }}>
+                    <Button
+                        backgroundColor={"rgb(220, 95, 0)"}
+                        icon={<DeleteIcon/>}
+                        text={"clear cart"}
+                    />
 
                 </div>
 
             </div>
-
         </div>
     )
 }

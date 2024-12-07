@@ -48,7 +48,6 @@ const ItemsContainer=()=>{
             <div className={"items"} style={items}>
                 {allItems.map((item)=> (
                     <Card description={item.description} name={item.name} price={item.price} image={item.image} offPrice={item.offerAmount} id={item.id} off={item.offer}/>
-
                 ))}
             </div>
 

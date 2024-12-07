@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 
-const Button =({backgroundColor,icon,text})=>{
+const Button =({backgroundColor,icon,text,disabled})=>{
     useEffect(() => {
         colorChange()
     }, []);
@@ -23,9 +23,23 @@ const Button =({backgroundColor,icon,text})=>{
         color:`${color}`,
         marginLeft:"15px"
     }
+    const disabledStyle ={
+        backgroundColor:"rgb(104, 109, 118)",
+        cursor: "not-allowed",
+        borderRadius:"20px",
+        border:"none",
+        outline:"none",
+        padding:"10px",
+        fontWeight:"600",
+        display:"flex",
+        alignItems:"center",
+        fontSize:"16px",
+    }
+
+
     return(
         <div className={"button"}>
-            <button style={buttonStyles}>
+            <button style={disabled?disabledStyle:buttonStyles}>
                 {text}{icon?icon:""}
             </button>
         </div>
