@@ -40,20 +40,30 @@ const Cart =()=>{
         display: "flex",
         alignItems:"center"
     }
+
+    const cartItemsHolder ={
+        display:"flex",
+        alignItems: "flex-end",
+        justifyContent: "space-evenly"
+    }
     const fetchItemsInCart =(async ()=>{
         const response =await fetch(BASE_URL)
         const data = await response.json()
         if(data.cart.items !==null){
             setCartItems(data?.cart.items)
         }else{
-            setCartItems("cart is empty at the moment")
+            setCartItems(["cart is empty at the moment"])
         }
     })
-    const cartItemsHolder ={
-        display:"flex",
-        alignItems: "flex-end",
-        justifyContent: "space-evenly"
-    }
+    const clearCart =(async ()=>{
+        const response =await fetch("http://localhost:8080/api/v1/cart/clear/cart?id=1",{
+            method:"DELETE"
+        })
+        if(response.ok){
+            const data =await response.json()
+            alert(data.message)
+        }
+    })
 
     return(
         <div style={cartStyling}>
@@ -86,6 +96,12 @@ const Cart =()=>{
                                             <AddIcon/>
                                         </button>
 
+                                    </div>
+                                    <div>Total :</div>
+                                    <div className={"clear__cart"}>
+                                        <button onClick={()=>clearCart()}>
+                                            Clear cart
+                                        </button>
                                     </div>
                                 </div>
                             ))

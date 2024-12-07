@@ -29,13 +29,11 @@ const ItemDesc =()=>{
     const myHeaders =new Headers()
     myHeaders.append("Content-Type","application/json")
     const addItemToCart =(async ()=>{
-        const response =await fetch("http://localhost:8080/api/v1/cart/add/items?userId=2&cartId=2", {
-            method:"POST",
-            body:JSON.stringify(itemWithId),
+        const response =await fetch(`http://localhost:8080/api/v1/cart/add/items?itemId=${id}&UserId=1&cartId=1`, {
+            method:"GET",
             headers:myHeaders,
             })
         const data = await response.json()
-        console.log(data)
         alert(data.message)
     })
 
