@@ -4,6 +4,7 @@ import {Route, Routes} from "react-router-dom";
 import ItemDesc from "./pages/ItemDesc.jsx";
 import Cart from "./pages/Cart.jsx";
 import ItemsCategoriesAvailable from "./pages/ItemsCategoriesAvailable.jsx";
+import Search from "./components/Search.jsx";
 
 function App() {
     return(
@@ -11,6 +12,7 @@ function App() {
             <Routes>
                 <Route path={"/"} element={<Body/>}/>
                 <Route path={"/cart"} element={<Cart/>}/>
+                <Route path={"/search/:item"} element={<Search/>}/>
                 <Route path={"/items/:name"} element={<ItemsCategoriesAvailable/>}/>
                 <Route path={"/item/description/:id"} element={<ItemDesc/>}/>
             </Routes>

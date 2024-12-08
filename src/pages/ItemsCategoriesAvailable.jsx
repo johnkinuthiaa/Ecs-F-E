@@ -7,19 +7,21 @@ const ItemsCategoriesAvailable =()=>{
 
     const [cat,setCategory] =useState([])
 
+
     useEffect(()=>{
+        const fetchDataByCategory =(async ()=>{
+            const response =await fetch(`http://localhost:8080/api/v1/shop/find/category?category=${category}`)
+            if(response.ok){
+                const data =await response.json()
+                setCategory(data.shopItemList)
+            }else{
+                console.log("network error when fetching data by category")
+            }
+
+        })
         fetchDataByCategory()
     },[])
-    const fetchDataByCategory =(async ()=>{
-        const response =await fetch(`http://localhost:8080/api/v1/shop/find/category?category=${category}`)
-        if(response.ok){
-            const data =await response.json()
-            setCategory(data.shopItemList)
-        }else{
-            console.log("network error when fetching data by category")
-        }
 
-    })
     const itemsDesc={
         display: "flex",
         flexWrap:"wrap",
@@ -32,7 +34,14 @@ const ItemsCategoriesAvailable =()=>{
     return(
         <div style={itemsDesc}>
             {cat.map((item)=>(
-                <Card image={item.image} off={item.offer} name={item.name} price={item.price} offPrice={item.offerAmount} description={item.description} id={item.id} />
+                <Card
+                    image={item.image}
+                    off={item.offer}
+                    name={item.name}
+                    price={item.price}
+                    offPrice={item.offerAmount}
+                    description={item.description}
+                    id={item.id} />
 
             ))}
         </div>

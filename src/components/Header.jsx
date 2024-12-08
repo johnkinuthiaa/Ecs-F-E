@@ -3,7 +3,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import "./styles/header.css"
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 
 const Header =()=>{
@@ -16,6 +16,7 @@ const Header =()=>{
     const getCart =()=>{
         navigate("/cart")
     }
+
     return(
         <div className={"header"} style={{
             display:"flex",
@@ -60,9 +61,9 @@ const Header =()=>{
                 </div>
                 <div onClick={()=>{
 
-                    navigate("/items/all")
+                    navigate("/items/unisex")
                 }}>
-                    All items
+                    unisex
                 </div>
             </div>
             <div className={"profile__section"} style={{
@@ -74,13 +75,19 @@ const Header =()=>{
 
             }}>
                 {isSearchVisible &&
-                    <input type={"search"} placeholder={"search for item"} onChange={(e)=>setSearchValue(e.target.value)}/>
+                    <div style={{display:"flex",alignItems:"center",gap:"2"}} className={"search__bar"}>
+                    <input type={"search"} placeholder={"search name"}
+                           onChange={(e) => setSearchValue(e.target.value)}/>
+                    <button type={"submit"} onClick={() => {
+                        console.log("clicked")
+                        navigate(`/search/${searchValue}`)
+                        }}>search
+                    </button>
+                    </div>
 
-                }
-                <button type={"submit"} onClick={()=>{
+            }
 
-                }}></button>
-                <div className={"profile__section__search"} onClick={()=>searchVisibility()}>
+            <div className={"profile__section__search"} onClick={()=>searchVisibility()}>
                     <SearchIcon />
                 </div>
                 <div className={"cart"} onClick={()=>getCart()}>

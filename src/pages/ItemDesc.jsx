@@ -4,12 +4,14 @@ import Button from "../components/Button.jsx";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 const ItemDesc =()=>{
 
     const [itemWithId,setItemWithId] =useState({})
     const [like,setLiked] =useState(false)
     let[disable,setDisabled] =useState(false)
+    const [message,setMessage] =useState("")
     useEffect(() => {
         getById()
     }, []);
@@ -35,7 +37,7 @@ const ItemDesc =()=>{
             })
         const data = await response.json()
         setDisabled(true)
-        alert(data.message)
+        setMessage(data.message)
     })
 
     const itemDescription = {
@@ -90,12 +92,12 @@ const ItemDesc =()=>{
                 <div className={"add__to__cart__btn__container"} style={addToCartBtn}>
                     <div
                         onClick={()=>{
-                            disable?(alert("item is already in cart")):(
+                            disable? (setMessage("item is already in cart")):(
                                 addItemToCart()
                             )
                         }}
                     >
-                        <Button backgroundColor={"rgb(56, 229, 77)"} text={"Add To Cart"} icon={<ShoppingCartIcon/>} />
+                        <Button backgroundColor={"rgb(56, 229, 77)"} text={"Add To Cart"} icon={<ShoppingCartIcon/>} modalIcon={<CheckCircleOutlineIcon/>} modalMessage={message}/>
                     </div>
                     <Button backgroundColor={"rgb(61, 59, 243)"} text={"Add To WishList"} icon={<FavoriteIcon/>}/>
                 </div>

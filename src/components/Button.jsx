@@ -1,10 +1,19 @@
 import {useEffect, useState} from "react";
+import Modal from "./Modal.jsx";
+import InfoIcon from "@mui/icons-material/Info";
 
-const Button =({backgroundColor,icon,text,disabled})=>{
+const Button =({backgroundColor,icon,text,disabled,modalMessage,modalIcon})=>{
+    const[clicked,setClicked] =useState(false)
     useEffect(() => {
         colorChange()
     }, []);
+    useEffect(()=>{
+        setTimeout(()=>{
+            setClicked(false)
+        },5000)
+    },[clicked])
     const [color,setColor] =useState("")
+
     const colorChange=()=>{
         backgroundColor ==="#fff"?setColor("#000000"):setColor("#fff")
     }
@@ -39,9 +48,13 @@ const Button =({backgroundColor,icon,text,disabled})=>{
 
     return(
         <div className={"button"}>
-            <button style={disabled?disabledStyle:buttonStyles}>
+            <button style={disabled?disabledStyle:buttonStyles} onClick={()=>{
+                setClicked(true)
+            }}>
                 {text}{icon?icon:""}
+
             </button>
+            {clicked && <Modal icon={modalIcon} message={modalMessage}/>}
         </div>
     )
 }

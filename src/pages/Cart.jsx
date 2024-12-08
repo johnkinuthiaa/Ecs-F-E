@@ -5,10 +5,15 @@ import {useEffect, useState} from "react";
 
 import "./Cart.css"
 import Button from "../components/Button.jsx";
+
+import InfoIcon from "@mui/icons-material/Info";
+import {useNavigate} from "react-router-dom";
 const Cart =()=>{
 
     const[itemsInCart,setItemsInCart] =useState(1)
     const [cartItems,setCartItems] =useState([])
+    const[num,setNum] =useState(0)
+    const navigate =useNavigate()
 
     let totalAmount =0
 
@@ -16,7 +21,7 @@ const Cart =()=>{
 
     useEffect(()=>{
         fetchItemsInCart()
-    },[])
+    },[num])
 
     const cartStyling ={
         margin:"10px auto",
@@ -60,7 +65,8 @@ const Cart =()=>{
         })
         if(response.ok){
             const data =await response.json()
-            alert(data.message)
+            // used this to reload page every time clear cart button is clicked! instead of cart items which would rerender the page multiple times
+            setNum(num+1)
         }
     })
 
@@ -103,13 +109,15 @@ const Cart =()=>{
             <div className={"clear__cart"} style={{display:cartItems.length===0&&"none"}}>
                 <p>Total Price: ${totalAmount}</p>
                 <div onClick={() => {
-                    cancelAnimationFrame(2)
                     clearCart()
+
                 }}>
                     <Button
                         backgroundColor={"rgb(220, 95, 0)"}
                         icon={<DeleteIcon/>}
                         text={"clear cart"}
+                        modalMessage={"cart cleared!"}
+                        modalIcon={<InfoIcon/>}
                     />
 
                 </div>
